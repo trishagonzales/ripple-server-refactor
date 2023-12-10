@@ -1,0 +1,76 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 String  @id
+  email              String  @unique
+  password           String?
+  googleRefreshToken String?
+  isEmailVerified    Boolean
+
+  profile    Profile?
+  posts      Post[]    @relation("author")
+  likedPosts Post[]    @relation("likes")
+  comments   Comment[]
+}
+
+model Profile {
+  id          String   @id
+  username    String   @unique
+  name        String?
+  bio         String?
+  location    String?
+  dateCreated DateTime
+  avatar      Avatar?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+}
+
+model Avatar {
+  id        String   @id
+  remoteId  String   @unique
+  url       String
+  profile   Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String   @unique
+}
+
+model Post {
+  id          String   @id
+  title       String
+  body        String
+  isDraft     Boolean
+  dateCreated DateTime
+  lastUpdated DateTime
+
+  likes     User[]         @relation("likes")
+  thumbnail PostThumbnail?
+  author    User           @relation("author", fields: [authorId], references: [id])
+  authorId  String
+  comments  Comment[]
+}
+
+model PostThumbnail {
+  id       String @id
+  remoteId String @unique
+  url      String
+  post     Post?  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String @unique
+}
+
+model Comment {
+  id          String   @id
+  body        String
+  dateCreated DateTime
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+  post     Post   @relation(fields: [postId], references: [id])
+  postId   String @unique
+}

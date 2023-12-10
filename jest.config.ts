@@ -6,14 +6,14 @@ const {
 
 const config: Config.InitialOptions = {
   moduleFileExtensions: ['js', 'json', 'ts'],
-  rootDir: 'src',
+  // rootDir: 'src',
   testEnvironment: 'node',
-  testRegex: '.*\\.spec\\.ts$',
+  // testRegex: '.*\\.spec\\.ts$',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.tsx?$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.(t|j)s'],
-  coverageDirectory: '../coverage',
+  // collectCoverageFrom: ['**/*.(t|j)s'],
+  // coverageDirectory: '../coverage',
 
   modulePaths: [baseUrl],
   moduleNameMapper: pathsToModuleNameMapper(paths),

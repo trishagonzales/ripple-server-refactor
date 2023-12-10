@@ -19,8 +19,15 @@
 
     "baseUrl": "./src",
     "paths": {
-      "@core/*": ["app/core/*"],
-      "@account/*": ["modules/account/*"]
+      "@app/*": ["app/*"],
+      "@account/*": ["shared/account/*"],
+      "@profile/*": ["shared/profile/*"],
+      "@avatar/*": ["shared/avatar/*"],
+      "@guest/*": ["shared/guest/*"],
+      "@post/*": ["shared/post/*"],
+      "@postThumbnail/*": ["shared/postThumbnail/*"],
+      "@comment/*": ["shared/comment/*"],
+      "@shared/*": ["shared/shared/*"]
     }
   },
 
